@@ -238,7 +238,7 @@ Stripping it down to the logic that reads and displays the records:
 
 `NOT AT END
 - part of the `READ` sentence where the instructions if the file being read is not at EOF
-- Here we tell it to display the `memberNanme` and `nickname`
+- Here we tell it to display the `memberName` and `nickname`
 
 Sample output:
 ```
@@ -257,20 +257,26 @@ Sample output:
 No more data to show
 ```
 
-Using this method displays the primary keys as 
+Using this method displays the primary keys in alphabetical order
 
 
 ##### Retrieve a specific record
-On the other hand
+On the other hand, searching for a specific record requires using the keyword `KEY IS`
 
+Example: 
+```cobol
+		open i-o ACMA
+               move searchKey to memberName
 
-
-
-
-
-
-
-
+               read ACMA key is memberName
+                   invalid key
+                       display "Name not found!"
+                   not invalid key
+                         display "| Name: " memberName " | "
+                               " Nickname: " nickname " |"
+               end-read
+           close ACMA
+```
 
 
 
