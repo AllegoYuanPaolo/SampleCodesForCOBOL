@@ -40,6 +40,15 @@ Do take note that this document will only focus on the `ORGANIZATION IS INDEXED`
 		</em>
 	</b>
 </blockquote>
+- **Guide to run programs:**** 
+	- To run the program of your choice, you can either:
+		- A) Open the project root as your working directory in VS Code
+			- type `dev` in the terminal
+			- then type `run` followed by the name of the proram: this will run the main menu code that shows the CRUD Operations on an Indexed file
+		- B) Open the program manually inside `bin\programs\` via cmd 
+	- Same g
+
+
 ---
 ### Declaration
 #### `ENVIRONMENT DIVISION`
