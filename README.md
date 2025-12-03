@@ -1,7 +1,23 @@
-# Code documentation for Indexed Sample
+# Code documentation
 ---
 # For better view:
-For a better view of this markdown file, it is highly recommended *(but optional)* to use **Obsidian**. *[Click here to download the latest version](https://obsidian.md/download)*. It is also a good notes app in general, 
+For a better view of this markdown file, it is highly recommended *(but optional)* to use **Obsidian**. *[Click here to download the latest version](https://obsidian.md/download)*. It is also a good notes app in general.
+
+---
+# Table of Contents:
+- [INDEXED](#indexed)
+    - [Declaration](#Declaration)
+    - [CRUD Operations](#CRUD%20Operations)
+        - [Create](#Create)
+        - [Retrieve](#Retrieve)
+            - [by all](#retrieve%20by%20all)
+            - [by specific record](#retrieve%20a%20specific%20record)
+        - [Update](#update)
+        - [Delete](#delete)
+- [Tables](#Tables)
+	- [Declaration](#Declaration)
+	- [Accessing](#Accessing)
+---
 # `INDEXED` 
  is  another type of File Organization.  Unlike `ORGANIZATION IS SEQUENTIAL`, `INDEXED` makes your `.dat` file output as a structured binary file.  This means that you can't open it in notepad or preview it.
 
@@ -24,18 +40,6 @@ Do take note that this document will only focus on the `ORGANIZATION IS INDEXED`
 		</em>
 	</b>
 </blockquote>
-
-
----
-# Table of Contents:
-- [Declaration](#Declaration)
-- [CRUD](#CRUD%20Operations)
-	- [Create](#Create)
-    - [Retrieve](#Retrieve)
-        - [by all](#retrieve%20by%20all)
-        - [by specific record](#retrieve%20a%20specific%20record)
-    - [Update](#update)
-    - [Delete](#delete)
 ---
 ### Declaration
 #### `ENVIRONMENT DIVISION`
@@ -388,3 +392,49 @@ This code block only has a few validation to confirm if the user wants to delete
 	Galing talaga ng bebe ko (Nov 29, 2025)<br>Ang cute-cute pa; tangina, sarap ibulsa (Dec 3, 2025)
 	</em>
 </blockquote>
+
+---
+
+# Tables
+---
+Tables in COBOL are akin to Array of Structures in C.  In a sense that while it is an array, it can store multiple datatypes.  Let's use *`tables.cbl`*, a simple program that sets names and nicknames to a table and prints it out as a reference
+
+
+## Declaration
+Example from *`tables.cbl`*:
+```cobol
+		01 sample.
+               02 sampleTable occurs 3 times.
+                   03 sampleName pic x(16).
+                   03 sampleNickname pic x(16).
+```
+
+The keyword to create a table is  `OCCURS x TIMES` where x is the number of tables.  It can be interpreted as like this: 
+```C
+//Structs in C
+struct sample{
+	char sampleName[16];
+	char sampleNickname[16];
+} sampleTable;
+
+void main(){
+	sampleTable[3];
+}
+```
+
+Essentially, we declare it the same way.  The `sampleName` and `sampleNickname` are both variables that are inside a structure.  
+
+## Accessing
+To access a specific index, we make use of `(index)`, much like the same way we access array elements: `array[index]`
+
+Example from *`tables.cbl`*:
+```cobol
+		   move "Yuan" to sampleName(1)
+           move "Snitch" to sampleNickname(1)
+
+           move "Narciso" to sampleName(2)
+           move "Namiram" to sampleNickname(2)
+
+           move "Zyron" to sampleName(3)
+           move "Arabisaya" to sampleNickname(3)
+```
