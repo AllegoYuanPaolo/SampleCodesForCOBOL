@@ -27,7 +27,16 @@ Do take note that this document will only focus on the `ORGANIZATION IS INDEXED`
 
 
 ---
-
+# Table of Contents:
+- [Declaration](#Declaration)
+- [CRUD](#CRUD%20Operations)
+	- [Create](#Create)
+    - [Retrieve](#Retrieve)
+        - [by all](#retrieve%20by%20all)
+        - [by specific record](#retrieve%20a%20specific%20record)
+    - [Update](#update)
+    - [Delete](#delete)
+---
 ### Declaration
 #### `ENVIRONMENT DIVISION`
 In the `INPUT-OUTPUT SECTION\FILE-CONTROL.`, you can declare an indexed file by using `FILE ORGANIZATION IS INDEXED` instead of `SEQUENTIAL`. 
@@ -117,7 +126,8 @@ Where the data field is occupied by the value and space padding.  For example,
 </fieldset>
 
 
-### CRUD (Create, Retrieve, Update, Delete) Operations
+### CRUD Operations
+(Create, Retrieve, Update, Delete)
 
 #### Create
 Create operations are done with the COBOL keyword of `WRITE`
@@ -224,7 +234,8 @@ Stripping it down to the logic that reads and displays the records:
 ```
 
 
-`PEFORM UNTIL eof = 'y'
+
+`PEFORM UNTIL eof = 'y'`
 - The loop the encloses our read sentence
 - if the variable `eof`'s value becomes `'y'`, it will stop
 
