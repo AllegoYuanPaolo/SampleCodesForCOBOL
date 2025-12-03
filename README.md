@@ -1,7 +1,7 @@
 # Code documentation for Indexed Sample
 ---
 # For better view:
-For a better view of this markdown file, it is highly recommended *(but optional)* to use **Obsidian**. *[Click here to download the latest version](https://obsidian.md/download)* 
+For a better view of this markdown file, it is highly recommended *(but optional)* to use **Obsidian**. *[Click here to download the latest version](https://obsidian.md/download)*. It is also a good notes app in general, 
 # `INDEXED` 
  is  another type of File Organization.  Unlike `ORGANIZATION IS SEQUENTIAL`, `INDEXED` makes your `.dat` file output as a structured binary file.  This means that you can't open it in notepad or preview it.
 
@@ -249,7 +249,7 @@ Stripping it down to the logic that reads and displays the records:
 	- A) display "No more data to show" to make it visible to the output when it reached the EOF
 	- B) set `eof`'s value to 'y' to break out of the `PERFORM UNTIL` loop 
 
-`NOT AT END
+`NOT AT END`
 - part of the `READ` sentence where the instructions if the file being read is not at EOF
 - Here we tell it to display the `memberName` and `nickname`
 
