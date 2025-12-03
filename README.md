@@ -125,7 +125,8 @@ Create operations are done with the COBOL keyword of `WRITE`
 
 
 
-For example; ask for user input, then write it into the file:
+For example; ask for user input, then write it into the file
+Example from *`addIndexed.cbl`*
 ```COBOL
 	  . . .
 		   display "Enter Member Name: " no advancing
@@ -182,6 +183,7 @@ The Create operation is done with `WRITE ACMA-rec` where it does as the clause i
 ##### Retrieve by all
 When retrieving or viewing data with `INDEXED` files, we use the `READ` clause paired with `NEXT RECORD` enclosed in a `PERFORM UNTIL` loop to go through all the records you have.
 
+Example from *`viewIndexed.cbl`*
 ```COBOL
 		open i-o ACMA *> open the file first
 
@@ -263,7 +265,7 @@ Using this method displays the primary keys in alphabetical order
 ##### Retrieve a specific record
 On the other hand, searching for a specific record requires using the keyword `KEY IS`
 
-Example: 
+Example from *`searchIndexed.cbl`*:
 ```cobol
 		open i-o ACMA
                move searchKey to memberName
@@ -278,31 +280,100 @@ Example:
            close ACMA
 ```
 
+In this code, the `READ` clause is appended by `KEY IS`.  This tells read to search the given key.  Take note that you can use the declared key (either `RECORD KEY IS` or `ALTERNATE KEY IS` ) in your `FILE-CONTROL`; in this case, `memberName` is the key being used
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Think of this entire block as 
 <blockquote>
 	<em>
-	Galing talaga ng bebe ko
+		"Look for <code>memberName</code> in <code>ACMA</code><br><b>If</b>  the key is not in the file, display "Name not found!".  <b>Else</b>, display <code>memberName</code> and <code>nickname</code>"
+	</em>
+</blockquote>
+
+#### Update
+In updating a record file, the algorithm goes as follows;
+1. Check if the record you want to update is in the file
+2. Update the record
+
+Example from *`updateIndexed.cbl`*:
+```cobol
+ display "Enter member to edit: " no advancing
+           accept newName
+
+           open i-o ACMA      
+
+           move newName to memberName
+           move spaces to newName
+
+               read ACMA key is memberName
+                   invalid key
+                       display "Name not found!"
+                   not invalid key
+                       display "| Name: " memberName " | "
+                               " Nickname: " nickname " |"
+                       display "Enter new nickname: " no advancing
+                       accept newName
+
+                       move newName to nickname
+                       
+                       rewrite ACMA-rec
+                       display "Updated!"
+
+                       display "| Name: " memberName " | "
+                               " Nickname: " nickname " |"
+               end-read
+               
+           close ACMA
+```
+
+- In this block, it first searches in the file if the record you want to update exists using `READ ACMA KEY IS memberName`
+- If the key doesn't exist, display *"Name not found!"*
+- Else, display the `name` and `nickname` then prompt the user to input the new nickname
+	- move the `newName` to `nickname` so you can then
+	- `REWRITE ACMA-rec`
+
+***NOTE:*** You ***cannot*** update your primary key (`RECORD KEY IS`), and only update the other data fields
+
+
+#### Delete
+Similarly, you can use the same method (search the key in the file first before modifying) to delete a record, just with a little tweak.  Instead of using `REWRITE ACMA-rec`, you change it into `DELETE ACMA`.  Notably, you're no longer using the record file but the file descriptor
+
+Example from *`deleteIndexed.cbl`*:
+```cobol
+		 display "Enter Name to delete: " no advancing
+         accept searchName
+
+           move searchName to memberName
+
+           open i-o ACMA
+               read ACMA key is memberName
+                   invalid key
+                       display "Name not found!"
+                   not invalid key
+                       display "| Name: " memberName " | "
+                               " Nickname: " nickname " |"
+                      
+		                *> prompt the user to confirm deletion
+                       display "Are you sure to delete this record?"
+                       display "[y/n] >" no advancing
+                       accept delChoice
+
+                       if delChoice = 'y'
+                           delete ACMA
+                           display "Deleted Successfully"
+                       else if delChoice = 'n'
+                           display "Exiting. . ."
+                       end-if
+
+               end-read
+           close ACMA
+```
+
+This code block only has a few validation to confirm if the user wants to delete the record, but the core principle here is `DELETE ACMA`
+
+
+
+<br><br><br><br><br><br><br><br><blockquote>
+	<em>
+	Galing talaga ng bebe ko (Nov 29, 2025)<br>Ang cute-cute pa; tangina, sarap ibulsa (Dec 3, 2025)
 	</em>
 </blockquote>
