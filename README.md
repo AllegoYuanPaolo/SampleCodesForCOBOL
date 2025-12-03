@@ -79,7 +79,7 @@ In the given code above, we use the following key words:
 			  ...
 			  RECORD KEY IS memberName
 			  ALTERNATE KEY IS nickname
-			  ALTERNATE KEY IS age WITH DUPLICATES
+			  ALTERNATE KEY IS age WITH DUPLICATES *> Only for example, not present in the code
 			  ...
 		  ```
 
